@@ -1,0 +1,439 @@
+/* ============================================
+   Rhine Water Level Monitor - Responsive Styles
+   Mobile-First Approach
+   ============================================ */
+
+/* ============================================
+   Mobile Base (< 768px)
+   ============================================ */
+
+/* Mobile defaults are already set in main.css */
+
+/* ============================================
+   Tablet (768px - 1024px)
+   ============================================ */
+
+@media (min-width: 768px) {
+  /* Typography scaling */
+  :root {
+    --font-size-3xl: 2.5rem;
+    --font-size-4xl: 3.5rem;
+    --font-size-5xl: 5rem;
+  }
+
+  /* Header */
+  .app-header h1 {
+    font-size: var(--font-size-4xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Level display */
+  .level-number {
+    font-size: 6rem;
+  }
+
+  .level-unit {
+    font-size: var(--font-size-3xl);
+  }
+
+  /* Chart */
+  .chart-container {
+    height: 450px;
+  }
+
+  /* Legend as grid */
+  .legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  /* Controls on same line */
+  .controls-section {
+    justify-content: space-between;
+  }
+
+  /* Footer */
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  .disclaimer {
+    text-align: right;
+    margin: 0;
+  }
+}
+
+/* ============================================
+   Desktop (> 1024px)
+   ============================================ */
+
+@media (min-width: 1024px) {
+  /* Container */
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+
+  /* Header */
+  .app-header {
+    padding: var(--spacing-xl) 0;
+  }
+
+  /* Main content */
+  .app-main {
+    padding: var(--spacing-xl) 0;
+  }
+
+  /* Status card enhancements */
+  .status-card {
+    padding: var(--spacing-xl);
+  }
+
+  /* Chart */
+  .chart-container {
+    height: 500px;
+  }
+
+  /* Legend horizontal */
+  .legend-items {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .legend-item {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Toast positioning */
+  .toast {
+    min-width: 400px;
+  }
+}
+
+/* ============================================
+   Large Desktop (> 1440px)
+   ============================================ */
+
+@media (min-width: 1440px) {
+  :root {
+    --spacing-xxl: 5rem;
+  }
+
+  .chart-container {
+    height: 550px;
+  }
+}
+
+/* ============================================
+   Mobile Specific (< 768px)
+   ============================================ */
+
+@media (max-width: 767px) {
+  /* Reduce header size */
+  .app-header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  /* Smaller level display */
+  .level-number {
+    font-size: 4rem;
+  }
+
+  .level-unit {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Compact status description */
+  .status-description {
+    font-size: var(--font-size-base);
+  }
+
+  /* Smaller chart */
+  .chart-container {
+    height: 300px;
+  }
+
+  /* Stack controls vertically */
+  .controls-section {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .toggle-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Footer stack */
+  .footer-content {
+    text-align: center;
+  }
+
+  .footer-source,
+  .disclaimer {
+    display: block;
+  }
+
+  /* Toast adjustments */
+  .toast {
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    min-width: auto;
+    top: var(--spacing-sm);
+  }
+
+  /* Reduce padding */
+  .status-card,
+  .chart-section,
+  .legend-section {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ============================================
+   Small Mobile (< 480px)
+   ============================================ */
+
+@media (max-width: 479px) {
+  :root {
+    --spacing-xs: 0.375rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+  }
+
+  /* Even smaller header */
+  .app-header h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Compact level display */
+  .level-number {
+    font-size: 3rem;
+  }
+
+  .level-unit {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Smaller chart */
+  .chart-container {
+    height: 250px;
+  }
+
+  /* Compact sections */
+  .status-card,
+  .chart-section,
+  .legend-section {
+    padding: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+  }
+
+  /* Smaller buttons */
+  .btn {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+
+  /* Compact legend */
+  .legend-color {
+    width: 20px;
+    height: 20px;
+  }
+
+  .legend-text strong {
+    font-size: var(--font-size-sm);
+  }
+
+  .legend-range {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ============================================
+   Landscape Mobile
+   ============================================ */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  /* Reduce vertical spacing */
+  .app-header {
+    padding: var(--spacing-sm) 0;
+  }
+
+  .app-main {
+    padding: var(--spacing-sm) 0;
+  }
+
+  .status-card,
+  .chart-section,
+  .legend-section {
+    margin: var(--spacing-sm) 0;
+  }
+
+  /* Optimize chart for landscape */
+  .chart-container {
+    height: 350px;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  /* Remove interactive elements */
+  .controls-section,
+  .loading-overlay,
+  .toast,
+  .app-footer {
+    display: none !important;
+  }
+
+  /* Optimize for print */
+  body {
+    background: white;
+  }
+
+  .app-header {
+    background: white;
+    color: black;
+    box-shadow: none;
+    border-bottom: 2px solid black;
+  }
+
+  .status-card,
+  .chart-section,
+  .legend-section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+
+  /* Chart size */
+  .chart-container {
+    height: 400px;
+  }
+
+  /* Remove animations */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   High Contrast Mode
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000;
+    --color-text-secondary: #000;
+  }
+
+  .status-card,
+  .chart-section,
+  .legend-section {
+    border: 2px solid var(--color-border);
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ============================================
+   Dark Mode (Future Enhancement)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #121212;
+    --color-surface: #1E1E1E;
+    --color-text-primary: #E0E0E0;
+    --color-text-secondary: #A0A0A0;
+    --color-text-disabled: #606060;
+    --color-border: #333;
+    --color-divider: #2A2A2A;
+  }
+
+  .app-header::before {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  }
+
+  .chart-container {
+    background: #0A0A0A;
+  }
+
+  .spinner {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+  }
+}
+
+/* ============================================
+   Touch Device Optimizations
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn {
+    min-height: 44px;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+
+  .toggle-container {
+    padding: var(--spacing-sm);
+  }
+
+  .toast-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Remove hover effects */
+  .btn:hover,
+  .legend-item:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Accessibility - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .app-header::before,
+  .status-icon,
+  .btn-icon {
+    animation: none !important;
+  }
+
+  .toast {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

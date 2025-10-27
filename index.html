@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Echtzeit-Überwachung des Rhein-Wasserstands in Köln mit historischen Daten und Warnstufen">
+  <meta name="keywords" content="Rhein, Pegel, Köln, Wasserstand, Hochwasser, Echtzeit">
+  <meta name="author" content="Rhein Pegel Monitor">
+  <title>🌊 Rhein Pegel Köln - Echtzeit Wasserstand</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container">
+      <h1>🌊 Rhein Pegel Köln</h1>
+      <p class="subtitle">Echtzeit Wasserstand-Überwachung</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <div class="container">
+      
+      <!-- Current Level Card -->
+      <section id="statusCard" class="status-card">
+        <div class="status-header">
+          <span id="statusIcon" class="status-icon">⏳</span>
+          <span id="statusBadge" class="status-badge">Laden...</span>
+        </div>
+        <div class="level-display">
+          <span id="currentLevel" class="level-number">---</span>
+          <span class="level-unit">cm</span>
+        </div>
+        <p id="statusDescription" class="status-description">Daten werden geladen...</p>
+        <div class="last-update">
+          Letzte Aktualisierung: <span id="lastUpdate">---</span>
+        </div>
+      </section>
+
+      <!-- Chart Section -->
+      <section class="chart-section">
+        <h2>📊 Verlauf (24 Stunden)</h2>
+        <div class="chart-container">
+          <canvas id="waterLevelChart" role="img" aria-label="Wasserstand-Verlaufsdiagramm für die letzten 24 Stunden"></canvas>
+        </div>
+      </section>
+
+      <!-- Legend -->
+      <section class="legend-section">
+        <h3>⚠️ Warnstufen</h3>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-color" style="background: #4CAF50"></span>
+            <div class="legend-text">
+              <strong>Normal</strong>
+              <span class="legend-range">&lt; 400 cm</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #FF9800"></span>
+            <div class="legend-text">
+              <strong>Warnung</strong>
+              <span class="legend-range">400 - 800 cm</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #F44336"></span>
+            <div class="legend-text">
+              <strong>Gefahr</strong>
+              <span class="legend-range">&gt; 800 cm</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Controls -->
+      <section class="controls-section">
+        <button id="refreshBtn" class="btn btn-primary" aria-label="Daten manuell aktualisieren">
+          <span class="btn-icon">🔄</span>
+          <span class="btn-text">Aktualisieren</span>
+        </button>
+        
+        <label class="toggle-container">
+          <input type="checkbox" id="autoRefreshToggle" checked aria-label="Auto-Aktualisierung aktivieren/deaktivieren">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Auto-Aktualisierung (60s)</span>
+        </label>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-source">
+          📡 Datenquelle: <a href="https://www.stadt-koeln.de" target="_blank" rel="noopener noreferrer">Stadt Köln</a>
+        </p>
+        <p class="disclaimer">
+          ⚠️ Diese Daten dienen nur zur Information. Für offizielle Hochwasserwarnungen beachten Sie bitte die 
+          <a href="https://www.hochwasserzentralen.de" target="_blank" rel="noopener noreferrer">offiziellen Hochwasserzentralen</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <p class="loading-text">Daten werden geladen...</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="toast toast-error hidden" role="alert" aria-live="assertive">
+    <span id="errorMessage" class="toast-message"></span>
+    <button class="toast-close" aria-label="Fehlermeldung schließen">&times;</button>
+  </div>
+
+  <!-- Success Toast -->
+  <div id="successToast" class="toast toast-success hidden" role="status" aria-live="polite">
+    <span id="successMessage" class="toast-message"></span>
+    <button class="toast-close" aria-label="Erfolgsmeldung schließen">&times;</button>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  
+  <!-- Application Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/app.js"></script>
+  
+  <!-- Initialize App -->
+  <script>
+    // Initialize application when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = new RheinPegelApp();
+      app.initialize().catch(error => {
+        console.error('Failed to initialize app:', error);
+        document.getElementById('statusDescription').textContent = 
+          'Fehler beim Laden der Anwendung. Bitte laden Sie die Seite neu.';
+      });
+    });
+  </script>
+</body>
+</html>
